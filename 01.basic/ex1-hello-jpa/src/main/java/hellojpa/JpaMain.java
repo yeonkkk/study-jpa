@@ -15,10 +15,22 @@ public class JpaMain {
         tx.begin(); // 트랜잭션 시작
 
         try {
-            Member member1 = new Member(150L, "A");
-            member1.setRoleType(RoleType.USER);
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            em.persist(member1);
+            Member member = new Member();
+            member.setName("member1");
+            member.setTeam(team);
+            em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam.getName() = " + findTeam.getName());
+
             tx.commit(); // 커밋
         } catch (Exception e) {
             tx.rollback();
