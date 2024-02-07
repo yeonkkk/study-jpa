@@ -16,34 +16,11 @@ public class JpaMain {
         tx.begin(); // 트랜잭션 시작
 
         try {
-            // 1. member 생성
-//            Member member = new Member();
-//        member.setId(1L);
-//        member.setName("홍길동");
-//            member.setId(2L);
-//            member.setName("김길동");
-//            em.persist(member);
+            Member member1 = new Member(150L, "A");
+            Member member2 = new Member(160L, "B");
 
-            // 2. member 조회
-//            Member findMember = em.find(Member.class, 1L);
-//            System.out.println("findMember.getId() = " + findMember.getId());
-//            System.out.println("findMember.getName() = " + findMember.getName());
-
-            // 3. 삭제
-//            Member findMember = em.find(Member.class, 1L);
-//            em.remove(findMember);
-
-            // 4. 수정
-//            Member findMember = em.find(Member.class, 1L);
-//            findMember.setName("최길동");
-
-            // JPQL 실습
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .getResultList();
-
-            for (Member member : result) {
-                System.out.println("member.getName() = " + member.getName());
-            }
+            em.persist(member1);
+            em.persist(member2);
 
             tx.commit(); // 커밋
         } catch (Exception e) {
